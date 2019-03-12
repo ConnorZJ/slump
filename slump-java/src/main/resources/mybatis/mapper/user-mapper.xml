@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzj.slump.dao.UserDao">
+    <resultMap id="UserResultMap" type="com.xzj.slump.entity.User">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="headUrl" property="head_url" jdbcType="VARCHAR"/>
+        <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
+        <result column="signature" property="signature" jdbcType="VARCHAR"/>
+        <result column="topicCount" property="topic_count" jdbcType="VARCHAR"/>
+        <result column="replyCount" property="reply_count" jdbcType="VARCHAR"/>
+        <result column="bestTopicCount" property="best_topic_count" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="base_column">
+        id,username,nickname,password,email,head_url,introduction,signature,topic_count,reply_count,best_topic_count
+    </sql>
+
+    <select id="queryUserByNamePass" parameterType="String" resultMap="UserResultMap">
+        SELECT *
+        FROM bbs_user
+        WHERE username = #{username} and password=#{password}
+    </select>
+</mapper>

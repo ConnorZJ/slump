@@ -13,6 +13,16 @@ export default new Router({
       redirect: '/login'
     },
     {
+      path: '/home',
+      name: 'home',
+      component: page('home')
+    },
+    {
+      path: '/clazz',
+      name: 'clazz',
+      component: page('clazz')
+    },
+    {
       path: '/404',
       name: '404',
       component: page('404')

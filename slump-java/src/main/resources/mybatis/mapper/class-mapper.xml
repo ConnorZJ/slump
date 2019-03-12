@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzj.slump.dao.ClassDao">
+    <resultMap id="ClassResultMap" type="com.xzj.slump.entity.Clazz">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="intro" property="intro" jdbcType="VARCHAR"/>
+        <result column="rule" property="rule" jdbcType="VARCHAR"/>
+        <result column="topic_count" property="topicCount" jdbcType="INTEGER"/>
+        <result column="reply_count" property="replyCount" jdbcType="INTEGER"/>
+        <result column="last_topic_id" property="lastTopicId" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="enabled" property="enabled" jdbcType="BIT"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="base_column">
+        id,name,intro,rule,topic_count,reply_count,last_topic_id,url,img_url,enabled,create_time,create_by
+    </sql>
+
+    <select id="getClasses" resultMap="ClassResultMap">
+        select *
+        from bbs_class
+        where enabled='1'
+    </select>
+</mapper>
