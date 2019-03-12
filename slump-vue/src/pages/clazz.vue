@@ -1,8 +1,13 @@
 <template>
   <div class="wrap">
     <div class="container">
-      <div class="container-head"></div>
+      <div class="container-head">
+          <div class="clazz-img">
+              <img src="" >
+          </div>
+      </div>
     </div>
+    <div class="container-body"></div>
   </div>
 </template>
 <script>
@@ -15,7 +20,7 @@ export default {
 </script>
 <style>
 .wrap {
-  background-color: #102931;
+  background-color: #bceffe;
 }
 </style>
 
