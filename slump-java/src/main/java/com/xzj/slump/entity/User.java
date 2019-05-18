@@ -26,4 +26,6 @@ public class User {
     private int replyCount;
     //精品贴数
     private int bestTopicCount;
+    //是否为管理员
+    private boolean mnger;
 }

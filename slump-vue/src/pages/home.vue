@@ -3,13 +3,13 @@
     <el-col :span="8" v-for="(classes,index) in clazz" :key="index">
       <div class="board-container">
         <div class="board-img">
-          <a href="#">
+          <router-link :to="{path:'/clazz',query:{classId:classes.id}}">
             <img style="float:left;width:120px;height:120px;" :src="classes.imgUrl" class="image">
-          </a>
+          </router-link>
         </div>
         <div>
           <div class="title-data">
-            <a href="#">{{classes.name}}</a>
+            <router-link :to="{path:'/clazz',query:{classId:classes.id}}">{{classes.name}}</router-link>
           </div>
           <div class="number-data">帖子数：{{classes.topicCount}}</div>
           <div class="intro-data">{{classes.intro}}</div>
@@ -33,11 +33,9 @@ export default {
   methods: {
     getClasses() {
       axios.get("/api/class/get").then(res => {
-        console.log(res);
         if (res.data.code == "200") {
           this.clazz = res.data.data;
         }
-        console.log(this.clazz);
       });
     }
   }
@@ -46,7 +44,7 @@ export default {
 <style>
 .board {
   width: 1200px;
-  margin: 20px auto;
+  margin: 0 auto;
 }
 .board-container {
   margin: 10px 10px;

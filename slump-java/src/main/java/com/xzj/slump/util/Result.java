@@ -7,8 +7,18 @@ import lombok.Setter;
 @Setter
 public class Result<T> {
     public enum Code {
+        // 服务器成功返回数据
         OK(200),
+        // 新建或修改成功
+        CREATED(201),
+        // 请求已经进入后台排队
+        ACCEPTED(202),
+        // 删除数据成功
+        DELETE(204),
+        // 用户没有权限
         ERROR(-1),
+        OK_EMPTY(101),
+        OK_EXIST(102),
         ILLEGAL_PARAMETER(100);
         private int code;
 
@@ -40,8 +50,20 @@ public class Result<T> {
         return new Result(data, "ok", Code.OK);
     }
 
+    public static <T> Result<T> okEmpty(T data) {
+        return new Result(data, "ok", Code.OK_EMPTY);
+    }
+
     public static <T> Result<T> error(T data, String errorMessage) {
         return new Result(data, errorMessage, Code.ERROR);
     }
 
+    @Override
+    public String toString() {
+        return "Result{" +
+                "data=" + data +
+                ", message='" + message + '\'' +
+                ", code=" + code +
+                '}';
+    }
 }

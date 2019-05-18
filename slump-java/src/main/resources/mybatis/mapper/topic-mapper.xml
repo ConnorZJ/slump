@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzj.slump.dao.TopicDao">
+    <resultMap id="TopicResultMap" type="com.xzj.slump.entity.Topic">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="class_id" property="classId" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="body" property="body" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime"/>
+        <result column="reply_by" property="replyBy" jdbcType="VARCHAR"/>
+        <result column="reply_time" property="replyTime"/>
+        <result column="hits" property="hits" jdbcType="INTEGER"/>
+        <result column="reply_count" property="replyCount" jdbcType="INTEGER"/>
+        <result column="enabled" property="enabled" jdbcType="BIT"/>
+        <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="is_close" property="closed" jdbcType="BIT"/>
+    </resultMap>
+
+    <sql id="base_column">
+        id,class_id,title,body,create_by,create_time,reply_by,reply_time,hits,reply_count,enabled,img_url,is_close
+    </sql>
+
+    <select id="getTopics" resultMap="TopicResultMap">
+        select
+        <include refid="base_column"/>
+        from bbs_topic
+        where enabled='1' and is_close='0' and class_id=#{classId}
+        order by create_time limit #{first},#{end}
+    </select>
+
+    <insert id="post" parameterType="com.xzj.slump.entity.Topic">
+        insert into bbs_topic values(#{id},#{classId},#{title},#{body},#{createBy},now(),#{replyBy},now(),#{hits},#{replyCount},true, null ,false )
+    </insert>
+
+    <select id="getTopicByTopicId" parameterType="java.lang.String" resultMap="TopicResultMap">
+        select * from bbs_topic where id = #{topicId}
+    </select>
+
+</mapper>

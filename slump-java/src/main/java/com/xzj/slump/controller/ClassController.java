@@ -1,5 +1,6 @@
 package com.xzj.slump.controller;
 
+import com.xzj.slump.entity.Clazz;
 import com.xzj.slump.service.ClassService;
 import com.xzj.slump.util.Result;
 import org.apache.ibatis.type.JdbcType;
@@ -17,7 +18,8 @@ public class ClassController {
 
     @RequestMapping(value="/get",method= RequestMethod.GET)
     public Result getClasses(){
-        return classService.getClasses();
+        Result<Clazz> classes = classService.getClasses();
+        return classes;
     }
 
 }

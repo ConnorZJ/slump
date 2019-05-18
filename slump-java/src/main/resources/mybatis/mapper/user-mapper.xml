@@ -13,6 +13,7 @@
         <result column="topicCount" property="topic_count" jdbcType="VARCHAR"/>
         <result column="replyCount" property="reply_count" jdbcType="VARCHAR"/>
         <result column="bestTopicCount" property="best_topic_count" jdbcType="VARCHAR"/>
+        <result column="is_mnger" property="mnger" jdbcType="BIT"/>
     </resultMap>
 
     <sql id="base_column">
@@ -24,4 +25,22 @@
         FROM bbs_user
         WHERE username = #{username} and password=#{password}
     </select>
+
+    <select id="queryById" parameterType="String" resultMap="UserResultMap">
+        select  * from bbs_user where id = #{id}
+    </select>
+
+    <select id="queryByUsername" parameterType="String" resultMap="UserResultMap">
+        select  * from bbs_user where username = #{username}
+    </select>
+
+    <update id="updateProfile" parameterType="com.xzj.slump.entity.User">
+        update bbs_user
+        set username=#{username},nickname=#{nickname},email=#{email},introduction=#{introduction},signature=#{signature}
+        where id=#{id}
+    </update>
+
+    <insert id="regist" parameterType="com.xzj.slump.entity.User">
+        insert into bbs_user values (#{id},#{username},#{nickname},#{password},#{email},#{headUrl},#{introduction},#{signature},#{topicCount},#{replyCount},#{bestTopicCount},now(),false )
+    </insert>
 </mapper>

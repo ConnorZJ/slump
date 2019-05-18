@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzj.slump.dao.ReplyDao">
+    <resultMap id="ReplyResultMap" type="com.xzj.slump.entity.Reply">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="topic_id" property="topicId" jdbcType="VARCHAR"/>
+        <result column="body" property="body" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="last_modified" property="lastModified"/>
+        <result column="create_time" property="createTime"/>
+        <result column="rank" property="rank" jdbcType="INTEGER"/>
+        <result column="is_delete" property="delete" jdbcType="BIT"/>
+        <result column="hava_reply" property="havaReply" jdbcType="BIT"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="base_column">
+        id,topic_id,body,username,last_modified,create_time,rank,is_delete,hava_reply,parent_id
+    </sql>
+
+    <select id="getReplyByTopicId" resultMap="ReplyResultMap">
+        select
+        <include refid="base_column"/>
+        from bbs_reply
+        where topic_id=#{topicId} and is_delete = false ORDER BY rank
+    </select>
+
+    <insert id="replyComment" parameterType="com.xzj.slump.entity.Reply">
+        insert into bbs_reply values (#{id},#{topicId},#{body},#{username},now(),now(),0,false,null,null)
+    </insert>
+
+    <update id="deleteReply">
+        update bbs_reply set is_delete = true where id = #{replyId}
+    </update>
+</mapper>

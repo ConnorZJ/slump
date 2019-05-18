@@ -4,10 +4,7 @@ import com.xzj.slump.entity.User;
 import com.xzj.slump.service.UserService;
 import com.xzj.slump.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -22,9 +19,41 @@ public class UserController {
         System.out.println(user);
         Result<User> res = userService.login(user);
         if (res.getCode() == 200) {
-            return new Result(res.getMessage(), Result.Code.OK);
+            return new Result(res.getData(), res.getMessage(), Result.Code.OK);
         } else {
             return new Result(res.getMessage(), Result.Code.ERROR);
         }
+    }
+
+    //修改个人信息
+    @RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
+    public Result updateProfile(@RequestBody User user) {
+        System.out.println(user);
+        Result<User> res = userService.updateProfile(user);
+        System.out.println("updateProfile -- " + res);
+        if (res.getCode() == 200) {
+            return new Result(res.getData(), res.getMessage(), Result.Code.OK);
+        } else {
+            return new Result(res.getMessage(), Result.Code.ERROR);
+        }
+    }
+
+    //使用id查询用户
+    @GetMapping("id/{userId}")
+    public Result getUserById(@PathVariable("userId") String userId) {
+        Result<User> user = userService.getUserById(userId);
+        return user;
+    }
+
+    //使用username查询用户
+    @GetMapping("username/{username}")
+    public Result getUserByUsername(@PathVariable("username") String username) {
+        Result<User> user = userService.queryByUsername(username);
+        return user;
+    }
+
+    @RequestMapping(value = "signup", method = RequestMethod.POST)
+    public Result regist(@RequestBody User user) {
+        return userService.regist(user);
     }
 }

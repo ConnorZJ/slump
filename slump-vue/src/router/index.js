@@ -5,12 +5,13 @@ Vue.use(Router)
 
 const page = name => () => import('@/pages/' + name)
 
+
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
-      redirect: '/login'
+      redirect: '/home'
     },
     {
       path: '/home',
@@ -21,6 +22,11 @@ export default new Router({
       path: '/clazz',
       name: 'clazz',
       component: page('clazz')
+    },
+    {
+      path: '/topic',
+      name: 'topic',
+      component: page('topic')
     },
     {
       path: '/404',
@@ -36,6 +42,21 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: page('login')
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: page('signup')
+    },
+    {
+      path:'/profile',
+      name:'profile',
+      component:page('profile')
+    },
+    {
+      path:'/create',
+      name:'create',
+      component:page('create')
     },
     {
       path: '*',
